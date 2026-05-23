@@ -39,8 +39,8 @@ jagopijat-website/
 
 - **Frontend:** HTML5 + CSS3 + Vanilla JS
 - **Booking:** WhatsApp API
-- **Hosting:** Netlify
-- **CI/CD:** GitHub → Netlify Auto Deploy
+- **Hosting:** GitHub Pages
+- **CI/CD:** GitHub Actions (auto deploy on push to main)
 - **Domain:** jagopijat.com
 
 ## Cara Update Website
@@ -51,8 +51,25 @@ jagopijat-website/
 git add .
 git commit -m "update: deskripsi perubahan"
 git push
-# Netlify auto-deploy otomatis ✅
+# GitHub Actions auto-deploy otomatis ✅
 ```
+
+## Setup GitHub Pages
+
+1. Buka repo → **Settings** → **Pages**
+2. Source: pilih **GitHub Actions**
+3. Push ke `main` → workflow `deploy.yml` otomatis deploy folder `jagopijat-website/`
+4. Custom domain: masukkan `www.jagopijat.com`, centang **Enforce HTTPS**
+
+### DNS (di domain registrar)
+
+| Type | Name | Value |
+|------|------|-------|
+| CNAME | www | centralcatgrooming-svg.github.io |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
 
 ## Dokumentasi Lengkap
 
