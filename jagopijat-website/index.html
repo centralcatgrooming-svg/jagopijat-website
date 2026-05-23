@@ -686,21 +686,6 @@ footer{background:#060200;padding:52px 48px 28px;border-top:1px solid rgba(200,1
 </footer>
 
 <script>
-// Active nav on scroll
-const sections=['home','layanan','kenapa','testimoni','booking'];
-const links=document.querySelectorAll('.sub-links a');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  sections.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el&&window.scrollY>=el.offsetTop-120) cur=id;
-  });
-  links.forEach(a=>{
-    a.classList.remove('active');
-    if(a.getAttribute('href')==='#'+cur) a.classList.add('active');
-  });
-});
-
 function submitForm(){
   const n = document.getElementById('f-name').value.trim();
   const p = document.getElementById('f-phone').value.trim();
