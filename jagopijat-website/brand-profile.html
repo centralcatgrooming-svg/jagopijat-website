@@ -78,21 +78,27 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .fu3{animation:fadeUp .9s .6s ease forwards;opacity:0}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,10,2,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,148,58,.22);padding:10px 40px;display:flex;align-items:center;justify-content:space-between}
-.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-img{width:40px;height:40px;object-fit:contain;border-radius:50%}
-.logo-text{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--gd);letter-spacing:.1em}
-.nav-links{display:flex;align-items:center;gap:0;list-style:none;margin:0;padding:0}
-.nav-links li{list-style:none}
-.nav-links li a{display:block;padding:8px 16px;color:rgba(237,224,192,.55);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-family:'Cinzel',serif;transition:color .25s;border-bottom:2px solid transparent}
-.nav-links li a:hover,.nav-links li a.active{color:var(--gd);border-bottom-color:var(--gd)}
-.nav-r{display:flex;align-items:center;gap:14px}
-.navpill{background:rgba(200,148,58,.1);border:1px solid rgba(200,148,58,.28);color:var(--gd);padding:4px 14px;border-radius:100px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-family:'Cinzel',serif}
-.navcta{background:var(--gd);color:var(--br);border:none;padding:9px 22px;border-radius:2px;font-family:'Lora',serif;font-weight:600;font-size:.83rem;cursor:pointer;letter-spacing:.04em;transition:all .25s}
-.navcta:hover{background:var(--gl)}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200}
+.nav-top{background:rgba(14,5,1,.97);backdrop-filter:blur(16px);padding:12px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(200,148,58,.2)}
+.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-img{width:44px;height:44px;object-fit:contain;border-radius:50%;border:1.5px solid rgba(200,148,58,.4)}
+.logo-brand{display:flex;flex-direction:column;line-height:1}
+.logo-name{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:600;color:var(--gd);letter-spacing:.12em}
+.logo-tagline{font-family:'Lora',serif;font-size:.65rem;color:rgba(237,224,192,.45);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-phone{display:flex;align-items:center;gap:7px;color:rgba(237,224,192,.6);font-size:.8rem;letter-spacing:.04em}
+.nav-phone span{color:var(--gd);font-weight:600}
+.navcta{background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:10px 24px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:all .25s;box-shadow:0 3px 14px rgba(200,148,58,.3);text-decoration:none;display:inline-block}
+.navcta:hover{transform:translateY(-1px)}
+.nav-sub{background:rgba(28,10,2,.95);backdrop-filter:blur(12px);padding:0 48px;border-bottom:1px solid rgba(200,148,58,.12)}
+.sub-links{display:flex;align-items:center;gap:0;list-style:none}
+.sub-links li a{display:block;padding:12px 22px;color:rgba(237,224,192,.55);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-family:'Cinzel',serif;transition:all .25s;border-bottom:2px solid transparent}
+.sub-links li a:hover,.sub-links li a.active{color:var(--gd);border-bottom-color:var(--gd)}
+.sub-divider{width:1px;height:14px;background:rgba(200,148,58,.2);margin:0 4px}
+.sub-badge{background:rgba(200,148,58,.15);color:var(--gd);font-size:.6rem;padding:2px 7px;border-radius:100px;margin-left:6px;border:1px solid rgba(200,148,58,.25)}
 
 /* HERO SPLIT */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:60px}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:90px}
 .hero-left{background:linear-gradient(155deg,#1C0A02 0%,#3A1508 60%,#1C0A02 100%);display:flex;align-items:center;justify-content:center;padding:60px 56px;position:relative;overflow:hidden}
 .hero-right{background:var(--cd);display:flex;align-items:center;padding:60px 64px;position:relative}
 
@@ -171,12 +177,15 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
 .ft-copy{color:rgba(237,224,192,.3);font-size:.75rem}
 
 @media(max-width:768px){
-  nav{padding:10px 14px;flex-wrap:wrap;gap:8px}
-  .nav-links{order:3;width:100%;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links li a{padding:6px 12px;font-size:.66rem;white-space:nowrap}
-  .navpill{display:none}
-  .hero{grid-template-columns:1fr}
+  .nav-top{padding:10px 18px}
+  .logo-tagline{display:none}
+  .navcta{padding:8px 14px;font-size:.72rem}
+  .nav-phone{display:none}
+  .nav-sub{padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-sub::-webkit-scrollbar{display:none}
+  .sub-links a{padding:10px 14px;font-size:.68rem;white-space:nowrap}
+  .sub-divider,.sub-badge{display:none}
+  .hero{grid-template-columns:1fr;padding-top:90px}
   .hero-right{padding:40px 28px}
   .hero-left{min-height:50vh}
   .two-col{grid-template-columns:1fr !important}
@@ -188,23 +197,34 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="logo-wrap">
-    <img src="assets/favicon/logo_transparent.png" class="logo-img" alt="JagoPijat"/>
-    <div class="logo-text">JAGOPIJAT</div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html">Beranda</a></li>
-    <li><a href="layanan.html">Layanan &amp; Harga</a></li>
-    <li><a href="booking.html">Booking</a></li>
-    <li><a href="tentang.html">Tentang Kami</a></li>
-    <li><a href="brand-profile.html" class="active">Brand Profile</a></li>
-  </ul>
-  <div class="nav-r">
-    <span class="navpill">Brand Profile</span>
-    <button class="navcta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Booking Sekarang</button>
+<div class="navbar">
+  <div class="nav-top">
+    <a href="index.html" class="logo-wrap">
+      <img src="assets/favicon/logo_transparent.png" class="logo-img" alt="JagoPijat"/>
+      <div class="logo-brand">
+        <div class="logo-name">JAGOPIJAT</div>
+        <div class="logo-tagline">Sentuhan Tradisi</div>
+      </div>
+    </a>
+    <div class="nav-right">
+      <div class="nav-phone">&#128222; <span>+62 858-2306-1990</span></div>
+      <button class="navcta" onclick="location.href='booking.html'">PESAN SEKARANG</button>
+    </div>
   </div>
-</nav>
+  <nav class="nav-sub">
+    <ul class="sub-links">
+      <li><a href="index.html">Beranda</a></li>
+      <div class="sub-divider"></div>
+      <li><a href="layanan.html">Layanan &amp; Harga</a></li>
+      <div class="sub-divider"></div>
+      <li><a href="booking.html">Booking <span class="sub-badge">OPEN</span></a></li>
+      <div class="sub-divider"></div>
+      <li><a href="tentang.html">Tentang Kami</a></li>
+      <div class="sub-divider"></div>
+      <li><a href="brand-profile.html" class="active">Brand Profile</a></li>
+    </ul>
+  </nav>
+</div>
 
 <!-- HERO -->
 <section class="hero batik">
@@ -329,7 +349,7 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
             <div style="font-size:.65rem;color:rgba(237,224,192,.35);letter-spacing:.12em;text-transform:uppercase;margin-top:2px">Pijat Tradisional &middot; Home Service</div>
           </div>
         </div>
-        <p style="color:rgba(237,224,192,.38);font-size:.86rem;line-height:1.78;margin-bottom:20px;max-width:260px">Layanan pijat & refleksi tradisional terpercaya. Menghadirkan kearifan leluhur ke rumah Anda dengan terapis bersertifikat.</p>
+        <p style="color:rgba(237,224,192,.6);font-size:.86rem;line-height:1.78;margin-bottom:20px;max-width:260px">Layanan pijat & refleksi tradisional terpercaya. Menghadirkan kearifan leluhur ke rumah Anda dengan terapis bersertifikat.</p>
         <!-- SOCIAL -->
         <div style="display:flex;gap:10px">
           <a href="https://www.instagram.com/jago_pijat" target="_blank" title="Instagram @jago_pijat"
@@ -351,11 +371,11 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
       <div>
         <div style="font-family:'Cinzel',serif;font-size:.76rem;font-weight:600;color:#EDE0C0;margin-bottom:16px;letter-spacing:.1em;text-transform:uppercase">Layanan</div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
-          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Pijat Tradisional</a></li>
-          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Pijat Plus+</a></li>
-          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Layanan Spesial</a></li>
-          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Bekam Cupping</a></li>
-          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Terapi Lintah</a></li>
+          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Pijat Tradisional</a></li>
+          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Pijat Plus+</a></li>
+          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Layanan Spesial</a></li>
+          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Bekam Cupping</a></li>
+          <li><a href="index.html#layanan" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Terapi Lintah</a></li>
         </ul>
       </div>
 
@@ -363,10 +383,10 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
       <div>
         <div style="font-family:'Cinzel',serif;font-size:.76rem;font-weight:600;color:#EDE0C0;margin-bottom:16px;letter-spacing:.1em;text-transform:uppercase">Navigasi</div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
-          <li><a href="index.html" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Beranda</a></li>
-          <li><a href="index.html#kenapa" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Keunggulan</a></li>
-          <li><a href="index.html#testimoni" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Testimoni</a></li>
-          <li><a href="index.html#booking" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">Booking</a></li>
+          <li><a href="index.html" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Beranda</a></li>
+          <li><a href="index.html#kenapa" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Keunggulan</a></li>
+          <li><a href="index.html#testimoni" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Testimoni</a></li>
+          <li><a href="index.html#booking" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">Booking</a></li>
           <li><a href="brand-profile.html" style="color:var(--gd);font-size:.84rem;text-decoration:none">Brand Profile &#8592;</a></li>
         </ul>
       </div>
@@ -377,19 +397,19 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
         <ul style="list-style:none;display:flex;flex-direction:column;gap:12px">
           <li style="display:flex;align-items:center;gap:10px">
             <span style="font-size:1rem">&#128222;</span>
-            <a href="https://wa.me/6285823061990" target="_blank" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">+62 858-2306-1990</a>
+            <a href="https://wa.me/6285823061990" target="_blank" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">+62 858-2306-1990</a>
           </li>
           <li style="display:flex;align-items:center;gap:10px">
             <span style="font-size:1rem">&#128247;</span>
-            <a href="https://www.instagram.com/jago_pijat" target="_blank" style="color:rgba(237,224,192,.38);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.38)'">@jago_pijat</a>
+            <a href="https://www.instagram.com/jago_pijat" target="_blank" style="color:rgba(237,224,192,.6);font-size:.84rem;text-decoration:none;transition:color .25s" onmouseover="this.style.color='#C8943A'" onmouseout="this.style.color='rgba(237,224,192,.6)'">@jago_pijat</a>
           </li>
           <li style="display:flex;align-items:center;gap:10px">
             <span style="font-size:1rem">&#9200;</span>
-            <span style="color:rgba(237,224,192,.38);font-size:.84rem">08.00 &ndash; 21.00 WIB</span>
+            <span style="color:rgba(237,224,192,.6);font-size:.84rem">08.00 &ndash; 21.00 WIB</span>
           </li>
           <li style="display:flex;align-items:center;gap:10px">
             <span style="font-size:1rem">&#128205;</span>
-            <span style="color:rgba(237,224,192,.38);font-size:.84rem">Jakarta &amp; Jabodetabek</span>
+            <span style="color:rgba(237,224,192,.6);font-size:.84rem">Jakarta &amp; Jabodetabek</span>
           </li>
         </ul>
       </div>
@@ -400,11 +420,11 @@ footer{background:#0A0301;padding:28px 40px;border-top:1px solid rgba(200,148,58
 
     <!-- BOTTOM -->
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-      <div style="color:rgba(237,224,192,.25);font-size:.75rem">&copy; 2025 JagoPijat. All Rights Reserved.</div>
+      <div style="color:rgba(237,224,192,.45);font-size:.75rem">&copy; 2025 JagoPijat. All Rights Reserved.</div>
       <div style="display:flex;gap:20px">
-        <a href="#" style="color:rgba(237,224,192,.25);font-size:.75rem;text-decoration:none">Syarat &amp; Ketentuan</a>
-        <a href="#" style="color:rgba(237,224,192,.25);font-size:.75rem;text-decoration:none">Kebijakan Privasi</a>
-        <a href="http://www.jagopijat.com" style="color:rgba(237,224,192,.25);font-size:.75rem;text-decoration:none">www.jagopijat.com</a>
+        <a href="#" style="color:rgba(237,224,192,.45);font-size:.75rem;text-decoration:none">Syarat &amp; Ketentuan</a>
+        <a href="#" style="color:rgba(237,224,192,.45);font-size:.75rem;text-decoration:none">Kebijakan Privasi</a>
+        <a href="http://www.jagopijat.com" style="color:rgba(237,224,192,.45);font-size:.75rem;text-decoration:none">www.jagopijat.com</a>
       </div>
     </div>
 
