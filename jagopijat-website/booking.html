@@ -74,12 +74,6 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .si-wrap{max-width:1120px;margin:0 auto}
 .sec-lbl{display:inline-flex;align-items:center;gap:8px;color:var(--gd);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-family:'Cinzel',serif}
 .sec-lbl::before,.sec-lbl::after{content:'';display:block;width:22px;height:1px;background:var(--gd)}
-.sec-ttl{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.7rem);color:var(--br);line-height:1.18;margin:12px 0 16px;font-weight:700}
-.sec-ttl em{color:var(--gd);font-style:italic}
-.btn-g{background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:12px 28px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
-.btn-g:hover{transform:translateY(-2px)}
-.btn-o{background:transparent;color:var(--bm);border:1px solid rgba(74,32,16,.3);padding:12px 24px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
-.btn-o:hover{border-color:var(--gd);color:var(--gd)}
 @media(max-width:768px){.sec{padding:60px 18px}}
 
 
@@ -96,6 +90,13 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .fsub{width:100%;background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:15px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.1em;border-radius:2px;cursor:pointer;transition:all .3s;margin-top:6px;box-shadow:0 4px 20px rgba(200,148,58,.35)}
 .fsub:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(200,148,58,.5)}
+.gd-grp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.gd-grp label{cursor:pointer;display:block;position:relative}
+.gd-in{position:absolute;opacity:0;width:0;height:0}
+.gd-pill{display:flex;align-items:center;justify-content:center;padding:13px 16px;background:#FFFDF5;border:1px solid rgba(200,148,58,.22);border-radius:2px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;color:var(--ts);transition:all .25s;text-align:center}
+.gd-pill:hover{border-color:var(--gd);color:var(--gd)}
+.gd-in:checked+.gd-pill{background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border-color:var(--gd);font-weight:600;box-shadow:0 3px 12px rgba(200,148,58,.25)}
+.gd-in:focus-visible+.gd-pill{box-shadow:0 0 0 3px rgba(200,148,58,.25)}
 .info-card{background:linear-gradient(155deg,#1C0A02,#3A1508);border-radius:4px;padding:40px;border:1px solid rgba(200,148,58,.12)}
 .ci{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(200,148,58,.08)}
 .ci:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
@@ -109,7 +110,6 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 @media(max-width:768px){.page-hero{padding:120px 20px 48px}.book-grid{grid-template-columns:1fr !important;gap:32px}.frow{grid-template-columns:1fr}}
 
 
-.brand{font-family:'Cinzel',serif;font-style:normal;letter-spacing:.06em;color:var(--gd)}
 </style>
 </head>
 <body>
@@ -149,6 +149,11 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
           <div><label class="fl">Nama Lengkap</label><input class="fi" id="f-name" placeholder="Nama Anda"/></div>
           <div><label class="fl">No. WhatsApp</label><input class="fi" id="f-phone" placeholder="08xx xxxx xxxx"/></div>
         </div>
+        <label class="fl">Jenis Kelamin</label>
+        <div class="gd-grp">
+          <label><input type="radio" name="gender" value="Laki-laki" class="gd-in"/><span class="gd-pill">Laki-laki</span></label>
+          <label><input type="radio" name="gender" value="Perempuan" class="gd-in"/><span class="gd-pill">Perempuan</span></label>
+        </div>
         <label class="fl">Pilih Layanan</label>
         <select class="fi" id="f-svc">
           <option value="">-- Pilih Layanan --</option>
@@ -186,7 +191,19 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
           <div><label class="fl">Waktu</label><input class="fi" type="time" id="f-time"/></div>
         </div>
         <label class="fl">Alamat Lengkap</label>
-        <input class="fi" id="f-addr" placeholder="Jl. ... No. ... RT/RW ... Kota ..."/>
+        <input class="fi" id="f-addr" placeholder="Jl. ... No. ... RT/RW ..."/>
+        <div class="frow">
+          <div><label class="fl">Provinsi</label>
+            <select class="fi" id="f-province" onchange="updateCities()">
+              <option value="DKI Jakarta">DKI Jakarta</option>
+              <option value="Banten" selected>Banten</option>
+              <option value="Jawa Barat">Jawa Barat</option>
+            </select>
+          </div>
+          <div><label class="fl">Kota / Area</label>
+            <select class="fi" id="f-city"></select>
+          </div>
+        </div>
         <label class="fl">Catatan Tambahan (opsional)</label>
         <input class="fi" id="f-note" placeholder="Area keluhan, preferensi, dll."/>
         <button class="fsub" onclick="submitForm()">&#127807; KIRIM PESANAN VIA WHATSAPP</button>
@@ -195,23 +212,79 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
   </div>
 </section>
 <script>
+const CITIES_BY_PROVINCE = {
+  'DKI Jakarta': ['Jakarta Selatan', 'Jakarta Pusat', 'Jakarta Barat', 'Jakarta Timur', 'Jakarta Utara'],
+  'Banten':      ['Tangerang Kota', 'Tangerang Selatan'],
+  'Jawa Barat':  ['Bekasi Kota', 'Depok'],
+};
+
+function updateCities(){
+  const prov = document.getElementById('f-province').value;
+  const sel  = document.getElementById('f-city');
+  sel.innerHTML = (CITIES_BY_PROVINCE[prov] || [])
+    .map(c => `<option>${c}</option>`).join('');
+}
+updateCities();
+
 function submitForm(){
-  const n=document.getElementById('f-name').value.trim();
-  const p=document.getElementById('f-phone').value.trim();
-  const s=document.getElementById('f-svc').value;
-  const d=document.getElementById('f-date').value;
-  const t=document.getElementById('f-time').value;
-  const a=document.getElementById('f-addr').value.trim();
-  const note=document.getElementById('f-note').value.trim();
-  if(!n||!p||!s){alert('Mohon lengkapi nama, nomor WhatsApp, dan layanan terlebih dahulu.');return;}
-  let tgl='-';
-  if(d){const dt=new Date(d);tgl=dt.toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
-  let wkt='-';
-  if(t){const[h,m]=t.split(':');wkt=h+'.'+m+' WIB';}
-  const msg='%F0%9F%8C%BF *PEMESANAN JAGOPIJAT* %F0%9F%8C%BF%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A%F0%9F%91%A4 *Nama:* '+encodeURIComponent(n)+'%0A%F0%9F%93%B1 *No. WA:* '+encodeURIComponent(p)+'%0A%0A%F0%9F%92%86 *Layanan:* '+encodeURIComponent(s)+'%0A%F0%9F%93%85 *Tanggal:* '+encodeURIComponent(tgl)+'%0A%E2%8F%B0 *Waktu:* '+encodeURIComponent(wkt)+'%0A%F0%9F%93%8D *Alamat:* '+encodeURIComponent(a||'-')+'%0A%F0%9F%93%9D *Catatan:* '+encodeURIComponent(note||'-')+'%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A_Dikirim via jagopijat.com_';
-  const waURL='https://wa.me/6285823061990?text='+msg;
-  document.getElementById('form-area').innerHTML='<div class="success-box"><div style="font-size:3rem;margin-bottom:16px">&#9989;</div><h3>PESANAN SIAP DIKIRIM!</h3><p>Klik tombol di bawah untuk mengirim pesanan langsung ke WhatsApp JagoPijat.<br/><span style="color:var(--gd);font-size:.85rem">Tim kami akan konfirmasi dalam 15 menit.</span></p><a href="'+waURL+'" target="_blank" style="display:inline-block;margin-top:20px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:14px 32px;font-family:Cinzel,serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;border-radius:2px;text-decoration:none">&#128172; KIRIM VIA WHATSAPP</a><br/><button onclick="location.reload()" style="margin-top:12px;background:none;border:1px solid rgba(200,148,58,.3);color:var(--gd);padding:10px 24px;font-family:Cinzel,serif;font-size:.74rem;letter-spacing:.06em;border-radius:2px;cursor:pointer">Pesan Lagi</button></div>';
-  setTimeout(()=>{window.open(waURL,'_blank');},600);
+  const v = id => document.getElementById(id).value.trim();
+  const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || '';
+
+  const fields = {
+    'Nama Lengkap':  v('f-name'),
+    'Jenis Kelamin': gender,
+    'No. WhatsApp':  v('f-phone'),
+    'Layanan':       v('f-svc'),
+    'Tanggal':       v('f-date'),
+    'Waktu':         v('f-time'),
+    'Alamat':        v('f-addr'),
+    'Provinsi':      v('f-province'),
+    'Kota':          v('f-city'),
+  };
+
+  const missing = Object.entries(fields).filter(([,val]) => !val).map(([k]) => k);
+  if (missing.length) {
+    alert('Mohon lengkapi field berikut:\n- ' + missing.join('\n- '));
+    return;
+  }
+
+  const note = v('f-note');
+  const tgl  = new Date(fields.Tanggal).toLocaleDateString('id-ID',
+    {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  const [h,m] = fields.Waktu.split(':');
+  const wkt = `${h}.${m} WIB`;
+
+  const msg =
+`🌿 *PEMESANAN JAGOPIJAT* 🌿
+━━━━━━━━━━
+👤 *Nama:* ${fields['Nama Lengkap']}
+🚻 *Jenis Kelamin:* ${fields['Jenis Kelamin']}
+📱 *No. WA:* ${fields['No. WhatsApp']}
+
+💆 *Layanan:* ${fields.Layanan}
+📅 *Tanggal:* ${tgl}
+⏰ *Waktu:* ${wkt}
+📍 *Alamat:* ${fields.Alamat}
+🏙️ *Kota:* ${fields.Kota}
+🗺️ *Provinsi:* ${fields.Provinsi}
+📝 *Catatan:* ${note || '-'}
+━━━━━━━━━━
+_Dikirim via jagopijat.com_`;
+
+  const waURL = 'https://wa.me/6285823061990?text=' + encodeURIComponent(msg);
+
+  document.getElementById('form-area').innerHTML =
+    `<div class="success-box">
+      <div style="font-size:3rem;margin-bottom:16px">&#9989;</div>
+      <h3>PESANAN SIAP DIKIRIM!</h3>
+      <p>Klik tombol di bawah untuk mengirim pesanan langsung ke WhatsApp JagoPijat.<br/>
+        <span style="color:var(--gd);font-size:.85rem">Tim kami akan konfirmasi dalam 15 menit.</span>
+      </p>
+      <a href="${waURL}" target="_blank" style="display:inline-block;margin-top:20px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:14px 32px;font-family:Cinzel,serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;border-radius:2px;text-decoration:none">&#128172; KIRIM VIA WHATSAPP</a><br/>
+      <button onclick="location.reload()" style="margin-top:12px;background:none;border:1px solid rgba(200,148,58,.3);color:var(--gd);padding:10px 24px;font-family:Cinzel,serif;font-size:.74rem;letter-spacing:.06em;border-radius:2px;cursor:pointer">Pesan Lagi</button>
+    </div>`;
+
+  setTimeout(() => window.open(waURL, '_blank'), 600);
 }
 </script>
 
