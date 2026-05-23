@@ -1,7 +1,7 @@
 # JagoPijat Website
 
 ## Deskripsi Proyek
-Website multi-page untuk JagoPijat — layanan pijat & refleksi tradisional home service berbasis di Jakarta.
+Website multi-page untuk JagoPijat — layanan pijat & refleksi tradisional home service berbasis di Tangerang dan sekitarnya (Jabodetabek).
 
 ---
 
@@ -10,37 +10,40 @@ Website multi-page untuk JagoPijat — layanan pijat & refleksi tradisional home
 |-------|-----------|
 | Frontend | HTML5 + CSS3 + Vanilla JS |
 | Backend | WhatsApp API (wa.me) |
-| Hosting | Netlify |
-| CI/CD | GitHub → Netlify Auto Deploy |
-| Domain | jagopijat.com |
+| Hosting | GitHub Pages |
+| CI/CD | GitHub Actions (auto deploy on push to main) |
+| Domain | jagopijat.com (custom domain via CNAME) |
 
 ---
 
 ## Struktur File
 ```
-jagopijat-website/
-├── index.html               # Halaman utama (marketing)
-├── layanan.html             # Daftar layanan & harga
-├── booking.html             # Form pemesanan
-├── tentang.html             # Tentang JagoPijat
-├── brand-profile.html       # Brand profile
-├── syarat-ketentuan.html    # Legal: Terms of Service
-├── kebijakan-privasi.html   # Legal: Privacy Policy
-├── assets/
-│   ├── js/
-│   │   ├── header.js              # ★ Shared header (DRY, hamburger mobile)
-│   │   └── footer.js              # ★ Shared footer (DRY, auto-year)
-│   ├── images/                    # Foto & gambar (coming soon)
-│   └── favicon/
-│       ├── logo_transparent.png   # ★ Logo aktif (PNG transparent, dipakai semua tag)
-│       ├── android-chrome-192x192.png   # legacy, white bg
-│       ├── android-chrome-512x512.png   # legacy, white bg
-│       ├── apple-touch-icon.png         # legacy, white bg
-│       ├── favicon.ico                  # legacy, white bg
-│       ├── favicon-16x16.png            # legacy, white bg
-│       ├── favicon-32x32.png            # legacy, white bg
-│       └── site.webmanifest
-└── README.md
+jagopijat-website/              ← git root
+├── .github/
+│   └── workflows/
+│       └── deploy.yml           # GitHub Actions: deploy subfolder ke Pages
+├── jagopijat-website/           ← publish directory (file site)
+│   ├── index.html               # Halaman utama (marketing)
+│   ├── layanan.html             # Daftar layanan & harga
+│   ├── booking.html             # Form pemesanan
+│   ├── tentang.html             # Tentang JagoPijat
+│   ├── brand-profile.html       # Brand profile
+│   ├── syarat-ketentuan.html    # Legal: Terms of Service
+│   ├── kebijakan-privasi.html   # Legal: Privacy Policy
+│   ├── robots.txt               # SEO: crawler rules + sitemap pointer
+│   ├── sitemap.xml              # SEO: 5 URL dengan priority
+│   ├── CNAME                    # GitHub Pages custom domain
+│   ├── .nojekyll                # Skip Jekyll processing
+│   ├── assets/
+│   │   ├── js/
+│   │   │   ├── header.js        # ★ Shared header (DRY, hamburger mobile)
+│   │   │   └── footer.js        # ★ Shared footer (DRY, auto-year)
+│   │   ├── images/              # Foto & gambar (coming soon)
+│   │   └── favicon/
+│   │       ├── logo_transparent.png   # ★ Logo aktif (PNG transparent)
+│   │       ├── site.webmanifest
+│   │       └── ... (legacy favicon files)
+│   └── README.md
 ```
 
 ---
@@ -49,7 +52,7 @@ jagopijat-website/
 
 ### 1. `index.html` — Halaman Utama (Marketing)
 - Hero full-screen dengan foto pijat + overlay gradient + Quick Book form
-- Stats strip (500+ pelanggan, 15+ tahun, 7 layanan, 4.9★)
+- Stats strip (500+ pelanggan, 20+ tahun, 7 layanan, 4.9★)
 - **Kenapa Terapi** — 3 benefit columns (energi/stamina, stres pikiran, nyaman di rumah) + social proof line
 - 3 layanan unggulan highlight (Pijat Tradisional, Layanan Spesial, Terapi Lintah)
 - Section "Kenapa JagoPijat" (4 poin: bersertifikat, alami, home service, transparan)
@@ -77,7 +80,7 @@ jagopijat-website/
 
 ### 4. `tentang.html` — Tentang JagoPijat
 - Page hero dark
-- Timeline perjalanan brand (2009–sekarang)
+- Timeline perjalanan brand (2005–sekarang, Cilacap → Jakarta)
 - Grid pencapaian (4 angka)
 - Skill bars layanan
 - Why choose us grid
@@ -231,14 +234,16 @@ Setiap halaman HTML sudah dilengkapi:
 |----------|-----|
 | Meta dasar | `description` (unik per halaman, ≤160 char), `keywords`, `author`, `robots` |
 | Open Graph | `og:title`, `og:description`, `og:type`, `og:url`, `og:image`, `og:site_name`, `og:locale=id_ID` |
-| Twitter Card | `summary_large_image` + title/description/image |
+| Twitter Card | `summary_large_image` (content pages) / `summary` (legal pages) + title/description/image |
 | Canonical | `<link rel="canonical">` per halaman |
 | Favicon | Link ke `assets/favicon/*` (apple-touch, 16x16, 32x32, ico, webmanifest) |
 | Schema.org | JSON-LD `LocalBusiness` (name, telephone, address Tangerang, areaServed Jabodetabek, IG `sameAs`, opening hours Mo-Su 08:00–21:00, priceRange Rp 120.000 – Rp 300.000) |
 
 **Keyword utama:** pijat tradisional Tangerang · pijat home service Tangerang · refleksi kaki Tangerang · bekam Tangerang · terapi lintah Tangerang · pijat panggilan Jakarta · pijat panggilan Tangerang
 
-> Saat update domain final, cari-ganti `https://www.jagopijat.com` di canonical, OG `url`, dan JSON-LD `url` di 5 file HTML.
+**SEO area phrasing:** Meta description / OG / Twitter pakai "Tangerang dan sekitarnya" sebagai anchor SEO. Daftar formal (schema `areaServed`, card area, footer) tetap list 4 kota: Jakarta, Bekasi, Tangerang, Depok.
+
+**Google Search Console:** Verification meta tag ada di `index.html`. Sitemap (`sitemap.xml`) berisi 5 URL (skip legal pages). `robots.txt` allow all + pointer ke sitemap.
 
 ---
 
@@ -281,37 +286,26 @@ Setiap select menampilkan loading state (`Memuat ...`) saat fetch dan error mess
 
 ---
 
-## Deploy (Netlify + GitHub)
+## Deploy (GitHub Pages + GitHub Actions)
 
-### Setup Awal
-```bash
-# 1. Clone / buat repo baru
-git init
-git add .
-git commit -m "initial commit"
-git remote add origin https://github.com/username/jagopijat-website.git
-git push -u origin main
-```
+### Cara Kerja
+File site ada di subfolder `jagopijat-website/`. GitHub Actions workflow (`.github/workflows/deploy.yml`) otomatis deploy subfolder ini ke GitHub Pages setiap push ke `main`.
 
-### Connect ke Netlify
-1. Login ke [netlify.com](https://netlify.com)
-2. **Add new site** → **Import from Git**
-3. Pilih repo `jagopijat-website`
-4. Build command: _(kosongkan)_
-5. Publish directory: `/` _(root)_
-6. **Deploy site**
+Workflow steps: `checkout` → `configure-pages` → `upload-pages-artifact` (path: `jagopijat-website`) → `deploy-pages`
 
-### Custom Domain
-1. Di Netlify → **Domain settings** → **Add custom domain**
-2. Masukkan `jagopijat.com`
-3. Update DNS di registrar domain:
-   ```
-   Type    Name    Value
-   A       @       75.2.60.5
-   CNAME   www     [site-name].netlify.app
-   ```
-4. Tunggu propagasi DNS (±24 jam)
-5. HTTPS otomatis aktif via Let's Encrypt
+### Setup GitHub Pages (sekali)
+1. Repo → **Settings** → **Pages**
+2. Source: pilih **GitHub Actions**
+3. Custom domain: `www.jagopijat.com`, centang **Enforce HTTPS**
+
+### DNS (di domain registrar)
+| Type | Name | Value |
+|------|------|-------|
+| CNAME | www | centralcatgrooming-svg.github.io |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
 
 ### Update Website
 ```bash
@@ -319,35 +313,41 @@ git push -u origin main
 git add .
 git commit -m "update: deskripsi perubahan"
 git push
-# Netlify auto-deploy dalam ~30 detik
+# GitHub Actions auto-deploy otomatis
 ```
 
 ---
 
 ## To Do
-- [x] SEO meta tags, Open Graph, Twitter Card, canonical, JSON-LD LocalBusiness
+- [x] SEO meta tags, Open Graph, Twitter Card (semua 7 halaman), canonical, JSON-LD LocalBusiness
 - [x] Link favicon di `<head>` semua halaman
 - [x] Fix navbar navigation (index.html anchor mati → cross-page links, brand-profile.html tambah navbar)
 - [x] Logo transparent untuk navbar/footer/hero & semua favicon/OG references
-- [x] Fix `site.webmanifest` (paths broken + name/colors)
+- [x] Fix `site.webmanifest` (paths relative, name/colors set)
 - [x] Shared header & footer (`header.js` + `footer.js`) — DRY
 - [x] Hamburger menu mobile (≤768px) dengan full-screen overlay
 - [x] Auto-update copyright year (`new Date().getFullYear()`)
-- [x] Cleanup dead `.ft-*` / `.nav-*` CSS dari semua halaman
+- [x] Cleanup dead CSS dari semua halaman
 - [x] Footer link konsisten di 5 halaman (Layanan 6 items, Navigasi 4 items)
-- [x] Booking form: Jenis Kelamin (radio), Provinsi+Kota cascade
+- [x] Booking form: Jenis Kelamin (radio), Provinsi+Kota+Kecamatan cascade via emsifa API
 - [x] Halaman utama: section "Kenapa Terapi" + testimoni slider auto-scroll 6 items
 - [x] Halaman legal: Syarat & Ketentuan + Kebijakan Privasi
+- [x] Audit brand-profile: fix CTA, year 2005, timeline 2005-2013, a11y (aria, alt, progressbar)
+- [x] Standardisasi SEO area: "Tangerang dan sekitarnya"
+- [x] robots.txt + sitemap.xml
+- [x] Google Search Console verification meta tag
+- [x] Migrasi hosting Netlify → GitHub Pages (Actions workflow + CNAME + .nojekyll)
+- [x] Audit menyeluruh semua halaman (mobile, tombol, form, WA, konten, SEO, a11y)
 - [ ] Tambah foto-foto layanan di `assets/images/`
 - [ ] Tambah foto tim terapis
 - [ ] Tambah foto before/after treatment
 - [ ] Integrasikan Google Analytics
 - [ ] Tambah halaman FAQ
-- [ ] Optimasi gambar (WebP format) + resize logo_transparent (~135KB) jadi ukuran lebih kecil untuk navbar
+- [ ] Optimasi gambar (WebP format) + resize logo_transparent (~135KB)
 - [ ] Test di berbagai device & browser
 - [ ] Setup Google My Business
-- [ ] Submit sitemap ke Google Search Console
-- [ ] (Opsional) Hapus file favicon legacy (white bg) kalau sudah pasti tidak dipakai
+- [ ] Submit sitemap ke Google Search Console (setelah domain live)
+- [ ] (Opsional) Hapus file favicon legacy (white bg)
 
 ---
 
