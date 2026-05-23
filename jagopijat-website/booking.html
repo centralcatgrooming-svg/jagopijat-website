@@ -87,6 +87,7 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .fi{width:100%;background:#FFFDF5;border:1px solid rgba(200,148,58,.22);border-radius:2px;padding:13px 16px;color:var(--br);font-family:'Lora',serif;font-size:.9rem;outline:none;transition:all .3s;margin-bottom:18px}
 .fi:focus{border-color:var(--gd);background:#FFF;box-shadow:0 0 0 3px rgba(200,148,58,.08)}
 .fi::placeholder{color:rgba(74,32,16,.35);font-style:italic}
+.fi:disabled{background:rgba(237,224,192,.4);color:rgba(74,32,16,.45);cursor:not-allowed}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .fsub{width:100%;background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:15px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.1em;border-radius:2px;cursor:pointer;transition:all .3s;margin-top:6px;box-shadow:0 4px 20px rgba(200,148,58,.35)}
 .fsub:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(200,148,58,.5)}
@@ -192,18 +193,12 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
         </div>
         <label class="fl">Alamat Lengkap</label>
         <input class="fi" id="f-addr" placeholder="Jl. ... No. ... RT/RW ..."/>
-        <div class="frow">
-          <div><label class="fl">Provinsi</label>
-            <select class="fi" id="f-province" onchange="updateCities()">
-              <option value="DKI Jakarta">DKI Jakarta</option>
-              <option value="Banten" selected>Banten</option>
-              <option value="Jawa Barat">Jawa Barat</option>
-            </select>
-          </div>
-          <div><label class="fl">Kota / Area</label>
-            <select class="fi" id="f-city"></select>
-          </div>
-        </div>
+        <label class="fl">Provinsi</label>
+        <select class="fi" id="f-province"><option value="">Memuat provinsi...</option></select>
+        <label class="fl">Kabupaten / Kota</label>
+        <select class="fi" id="f-regency" disabled><option value="">Pilih provinsi dulu</option></select>
+        <label class="fl">Kecamatan</label>
+        <select class="fi" id="f-district" disabled><option value="">Pilih kabupaten/kota dulu</option></select>
         <label class="fl">Catatan Tambahan (opsional)</label>
         <input class="fi" id="f-note" placeholder="Area keluhan, preferensi, dll."/>
         <button class="fsub" onclick="submitForm()">&#127807; KIRIM PESANAN VIA WHATSAPP</button>
@@ -212,34 +207,96 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
   </div>
 </section>
 <script>
-const CITIES_BY_PROVINCE = {
-  'DKI Jakarta': ['Jakarta Selatan', 'Jakarta Pusat', 'Jakarta Barat', 'Jakarta Timur', 'Jakarta Utara'],
-  'Banten':      ['Tangerang Kota', 'Tangerang Selatan'],
-  'Jawa Barat':  ['Bekasi Kota', 'Depok'],
-};
+const API_BASE = 'https://www.emsifa.com/api-wilayah-indonesia/api';
+const DEFAULT_PROVINCE = 'BANTEN';
 
-function updateCities(){
-  const prov = document.getElementById('f-province').value;
-  const sel  = document.getElementById('f-city');
-  sel.innerHTML = (CITIES_BY_PROVINCE[prov] || [])
-    .map(c => `<option>${c}</option>`).join('');
+const $prov = document.getElementById('f-province');
+const $reg  = document.getElementById('f-regency');
+const $dist = document.getElementById('f-district');
+
+const setLoading     = (sel, label) => { sel.innerHTML = `<option value="">Memuat ${label}...</option>`; sel.disabled = true; };
+const setError       = (sel, label) => { sel.innerHTML = `<option value="">Gagal memuat ${label} — coba lagi</option>`; sel.disabled = true; };
+const setPlaceholder = (sel, msg)   => { sel.innerHTML = `<option value="">${msg}</option>`; sel.disabled = true; };
+
+async function fetchJSON(url){
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
 }
-updateCities();
+
+function fillOptions(sel, items, placeholder){
+  sel.innerHTML = `<option value="">${placeholder}</option>` +
+    items.map(it => `<option value="${it.name}" data-id="${it.id}">${it.name}</option>`).join('');
+  sel.disabled = false;
+}
+
+async function loadProvinces(){
+  setLoading($prov, 'provinsi');
+  try {
+    const provinces = await fetchJSON(`${API_BASE}/provinces.json`);
+    fillOptions($prov, provinces, '-- Pilih Provinsi --');
+    const def = provinces.find(p => p.name.toUpperCase() === DEFAULT_PROVINCE);
+    if (def) {
+      $prov.value = def.name;
+      await loadRegencies(def.id);
+    }
+  } catch (e) {
+    console.error('Gagal memuat provinsi:', e);
+    setError($prov, 'provinsi');
+  }
+}
+
+async function loadRegencies(provinceId){
+  setPlaceholder($dist, 'Pilih kabupaten/kota dulu');
+  if (!provinceId) { setPlaceholder($reg, 'Pilih provinsi dulu'); return; }
+  setLoading($reg, 'kabupaten/kota');
+  try {
+    const regencies = await fetchJSON(`${API_BASE}/regencies/${provinceId}.json`);
+    fillOptions($reg, regencies, '-- Pilih Kabupaten/Kota --');
+  } catch (e) {
+    console.error('Gagal memuat kab/kota:', e);
+    setError($reg, 'kabupaten/kota');
+  }
+}
+
+async function loadDistricts(regencyId){
+  if (!regencyId) { setPlaceholder($dist, 'Pilih kabupaten/kota dulu'); return; }
+  setLoading($dist, 'kecamatan');
+  try {
+    const districts = await fetchJSON(`${API_BASE}/districts/${regencyId}.json`);
+    fillOptions($dist, districts, '-- Pilih Kecamatan --');
+  } catch (e) {
+    console.error('Gagal memuat kecamatan:', e);
+    setError($dist, 'kecamatan');
+  }
+}
+
+$prov.addEventListener('change', () => {
+  const opt = $prov.options[$prov.selectedIndex];
+  loadRegencies(opt ? opt.dataset.id : '');
+});
+$reg.addEventListener('change', () => {
+  const opt = $reg.options[$reg.selectedIndex];
+  loadDistricts(opt ? opt.dataset.id : '');
+});
+
+loadProvinces();
 
 function submitForm(){
   const v = id => document.getElementById(id).value.trim();
   const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || '';
 
   const fields = {
-    'Nama Lengkap':  v('f-name'),
-    'Jenis Kelamin': gender,
-    'No. WhatsApp':  v('f-phone'),
-    'Layanan':       v('f-svc'),
-    'Tanggal':       v('f-date'),
-    'Waktu':         v('f-time'),
-    'Alamat':        v('f-addr'),
-    'Provinsi':      v('f-province'),
-    'Kota':          v('f-city'),
+    'Nama Lengkap':    v('f-name'),
+    'Jenis Kelamin':   gender,
+    'No. WhatsApp':    v('f-phone'),
+    'Layanan':         v('f-svc'),
+    'Tanggal':         v('f-date'),
+    'Waktu':           v('f-time'),
+    'Alamat':          v('f-addr'),
+    'Provinsi':        v('f-province'),
+    'Kabupaten/Kota':  v('f-regency'),
+    'Kecamatan':       v('f-district'),
   };
 
   const missing = Object.entries(fields).filter(([,val]) => !val).map(([k]) => k);
@@ -265,7 +322,8 @@ function submitForm(){
 📅 *Tanggal:* ${tgl}
 ⏰ *Waktu:* ${wkt}
 📍 *Alamat:* ${fields.Alamat}
-🏙️ *Kota:* ${fields.Kota}
+🏘️ *Kecamatan:* ${fields.Kecamatan}
+🏙️ *Kabupaten/Kota:* ${fields['Kabupaten/Kota']}
 🗺️ *Provinsi:* ${fields.Provinsi}
 📝 *Catatan:* ${note || '-'}
 ━━━━━━━━━━

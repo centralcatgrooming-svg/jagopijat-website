@@ -70,7 +70,7 @@ jagopijat-website/
   - Pilih Layanan (grouped dropdown)
   - Tanggal + Waktu (2-col)
   - Alamat Lengkap
-  - **Provinsi + Kota/Area** — cascading dropdown (Banten default → Tangerang Kota/Selatan)
+  - **Provinsi → Kabupaten/Kota → Kecamatan** — 3-level cascading dropdown via API Wilayah Indonesia (emsifa.com), default Banten, loading state + error handling
   - Catatan Tambahan (opsional)
 - Validasi per-field (alert list field yang kosong)
 - Submit → format pesan template literal → kirim ke WhatsApp
@@ -246,7 +246,7 @@ Setiap halaman HTML sudah dilengkapi:
 Form booking otomatis format pesan dan kirim ke WA:
 - Nomor tujuan: `6285823061990`
 - Format URL: `https://wa.me/6285823061990?text=...`
-- Pesan berisi: nama, jenis kelamin, no WA, layanan, tanggal, waktu, alamat, kota, provinsi, catatan
+- Pesan berisi: nama, jenis kelamin, no WA, layanan, tanggal, waktu, alamat, kecamatan, kab/kota, provinsi, catatan
 - Template literal + 1× `encodeURIComponent()` (bukan hand-coded %XX literal)
 - Format pesan:
   ```
@@ -260,12 +260,24 @@ Form booking otomatis format pesan dan kirim ke WA:
   📅 *Tanggal:* ...
   ⏰ *Waktu:* ...
   📍 *Alamat:* ...
-  🏙️ *Kota:* ...
+  🏘️ *Kecamatan:* ...
+  🏙️ *Kabupaten/Kota:* ...
   🗺️ *Provinsi:* ...
   📝 *Catatan:* ...
   ━━━━━━━━━━
   _Dikirim via jagopijat.com_
   ```
+
+## API Wilayah Indonesia
+Booking form pakai API publik gratis dari [emsifa.com/api-wilayah-indonesia](https://www.emsifa.com/api-wilayah-indonesia) — pure fetch, no backend, no API key.
+
+| Level | Endpoint | Dipakai |
+|-------|----------|---------|
+| Provinsi | `/api/provinces.json` | Initial load, auto-select Banten |
+| Kab/Kota | `/api/regencies/{province_id}.json` | On province change |
+| Kecamatan | `/api/districts/{regency_id}.json` | On regency change |
+
+Setiap select menampilkan loading state (`Memuat ...`) saat fetch dan error message (`Gagal memuat ... — coba lagi`) jika request gagal. Option `value` = nama (dipakai langsung di pesan WA), `data-id` = id (dipakai untuk fetch child level).
 
 ---
 
