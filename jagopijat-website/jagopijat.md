@@ -19,20 +19,26 @@ Website multi-page untuk JagoPijat — layanan pijat & refleksi tradisional home
 ## Struktur File
 ```
 jagopijat-website/
-├── index.html           # Halaman utama (marketing)
-├── layanan.html         # Daftar layanan & harga
-├── booking.html         # Form pemesanan
-├── tentang.html         # Tentang JagoPijat
-├── jagopijat_page1.html # Brand profile
+├── index.html               # Halaman utama (marketing)
+├── layanan.html             # Daftar layanan & harga
+├── booking.html             # Form pemesanan
+├── tentang.html             # Tentang JagoPijat
+├── brand-profile.html       # Brand profile
+├── syarat-ketentuan.html    # Legal: Terms of Service
+├── kebijakan-privasi.html   # Legal: Privacy Policy
 ├── assets/
-│   ├── images/          # Foto & gambar (coming soon)
-│   └── favicon/         # Logo & favicon
-│       ├── android-chrome-192x192.png
-│       ├── android-chrome-512x512.png
-│       ├── apple-touch-icon.png
-│       ├── favicon.ico
-│       ├── favicon-16x16.png
-│       ├── favicon-32x32.png
+│   ├── js/
+│   │   ├── header.js              # ★ Shared header (DRY, hamburger mobile)
+│   │   └── footer.js              # ★ Shared footer (DRY, auto-year)
+│   ├── images/                    # Foto & gambar (coming soon)
+│   └── favicon/
+│       ├── logo_transparent.png   # ★ Logo aktif (PNG transparent, dipakai semua tag)
+│       ├── android-chrome-192x192.png   # legacy, white bg
+│       ├── android-chrome-512x512.png   # legacy, white bg
+│       ├── apple-touch-icon.png         # legacy, white bg
+│       ├── favicon.ico                  # legacy, white bg
+│       ├── favicon-16x16.png            # legacy, white bg
+│       ├── favicon-32x32.png            # legacy, white bg
 │       └── site.webmanifest
 └── README.md
 ```
@@ -42,12 +48,13 @@ jagopijat-website/
 ## Halaman & Konten
 
 ### 1. `index.html` — Halaman Utama (Marketing)
-- Hero full-screen dengan foto pijat + overlay gradient
+- Hero full-screen dengan foto pijat + overlay gradient + Quick Book form
 - Stats strip (500+ pelanggan, 15+ tahun, 7 layanan, 4.9★)
-- 3 layanan unggulan highlight
-- Section keunggulan (4 poin)
-- 2 testimoni terpilih
-- CTA besar → booking.html
+- **Kenapa Terapi** — 3 benefit columns (energi/stamina, stres pikiran, nyaman di rumah) + social proof line
+- 3 layanan unggulan highlight (Pijat Tradisional, Layanan Spesial, Terapi Lintah)
+- Section "Kenapa JagoPijat" (4 poin: bersertifikat, alami, home service, transparan)
+- **Testimoni** — auto-scroll marquee dengan 6 testimoni (pause-on-hover, mask-fade edges, JS-duplicate untuk seamless loop)
+- Big CTA → booking.html
 
 ### 2. `layanan.html` — Daftar Layanan & Harga
 - Page hero dark
@@ -57,8 +64,16 @@ jagopijat-website/
 ### 3. `booking.html` — Form Pemesanan
 - Page hero dark
 - Info card (kontak, jam, area) — dark side
-- Form card (nama, WA, layanan, tanggal, waktu, alamat, catatan) — light side
-- Submit → format pesan otomatis → kirim ke WhatsApp
+- Form card — light side, dengan field:
+  - Nama Lengkap + No. WhatsApp (2-col)
+  - **Jenis Kelamin** — radio pills Laki-laki/Perempuan (gold gradient saat selected)
+  - Pilih Layanan (grouped dropdown)
+  - Tanggal + Waktu (2-col)
+  - Alamat Lengkap
+  - **Provinsi + Kota/Area** — cascading dropdown (Banten default → Tangerang Kota/Selatan)
+  - Catatan Tambahan (opsional)
+- Validasi per-field (alert list field yang kosong)
+- Submit → format pesan template literal → kirim ke WhatsApp
 
 ### 4. `tentang.html` — Tentang JagoPijat
 - Page hero dark
@@ -68,12 +83,23 @@ jagopijat-website/
 - Why choose us grid
 - CTA section → booking.html
 
-### 5. `jagopijat_page1.html` — Brand Profile
+### 5. `brand-profile.html` — Brand Profile
 - Hero split (logo circle + info brand)
 - Skill bars
 - Timeline karir
 - Teknik unggulan
 - CTA booking
+
+### 6. `syarat-ketentuan.html` — Terms of Service
+- 10 section: definisi, pemesanan, pembayaran, reschedule/pembatalan,
+  tanggung jawab pelanggan & JagoPijat, pembatasan layanan, area,
+  perubahan, kontak
+- Linked dari footer
+
+### 7. `kebijakan-privasi.html` — Privacy Policy
+- 9 section: data yang dikumpulkan, cara penggunaan, penyimpanan,
+  berbagi data, cookies, keamanan, hak pelanggan, perubahan, kontak
+- Linked dari footer
 
 ---
 
@@ -96,7 +122,7 @@ jagopijat-website/
 | | | 120 mnt | Rp 280.000 |
 | Bekam Cupping | Bekam Basah | Per sesi | Rp 120.000 |
 | | Pijat + Bekam Kering | Per sesi | Rp 180.000 |
-| Terapi Lintah | Terapi Lintah (10 ekor) | Per treatment | Rp 500.000 |
+| Terapi Lintah | Terapi Lintah (10 ekor) | Per treatment | Rp 300.000 |
 
 ---
 
@@ -141,11 +167,105 @@ jagopijat-website/
 
 ---
 
+## Shared Components (DRY)
+
+Header & footer di-extract jadi 1 file JS masing-masing. Setiap halaman cuma punya mount point + script tag — edit 1× di JS, semua halaman update otomatis. Ini menghindari drift error yang pernah terjadi (broken anchor di footer, dll).
+
+### `assets/js/header.js`
+- Generate `<div class="jp-navbar">` 2-tier (nav-top + nav-sub)
+- Inject scoped CSS (prefix `.jp-*` supaya tidak collision)
+- Auto-detect active sub-link dari `location.pathname.split('/').pop()`
+- **Hamburger menu mobile** (≤768px): hide sub-links, show ☰ button → click open full-screen overlay dengan 5 nav links + 2 CTA (Pesan Sekarang, Chat WA). Esc/link click close, body lock scroll
+- Edit NAV array di top file untuk ubah link
+
+### `assets/js/footer.js`
+- Generate `<footer class="jp-footer">` lengkap (logo, sosmed, Layanan, Navigasi, Kontak, copyright + legal links)
+- Inject scoped CSS (prefix `.jp-ft-*`)
+- **Copyright year** dari `new Date().getFullYear()` — auto-update tahunan
+- Edit array link di top file untuk update nav/kontak
+
+### Mount pattern (semua halaman):
+```html
+<body>
+<div id="site-header"></div>
+<script src="assets/js/header.js"></script>
+
+<!-- page content -->
+
+<div id="site-footer"></div>
+<script src="assets/js/footer.js"></script>
+</body>
+```
+
+### Trade-off SEO
+Header & footer di-render client-side. Modern Google crawl JS dengan baik. Untuk konten kritis SEO (heading, body), masih di static HTML — yang JS hanya nav/footer (link discovery, bukan content).
+
+---
+
+## Logo & Favicon
+File aktif: `assets/favicon/logo_transparent.png` (PNG transparan, 512×512).
+
+| Dipakai sebagai | Tag / Lokasi |
+|-----------------|--------------|
+| Navbar logo | `<img class="jp-logo-img">` (di-inject oleh header.js) |
+| Footer logo | `<img class="jp-ft-logo-img">` (di-inject oleh footer.js) |
+| Hero brand-circle | `<img class="brand-logo">` di brand-profile |
+| CTA section logo | inline-styled `<img>` di index/tentang/brand-profile |
+| Browser tab favicon | `<link rel="icon" sizes="16x16/32x32">` |
+| iOS home screen | `<link rel="apple-touch-icon">` |
+| Shortcut icon | `<link rel="shortcut icon">` |
+| Android / PWA | `site.webmanifest` icons array (192/512) |
+| WhatsApp & sosmed preview | `og:image`, `twitter:image` |
+| Schema.org | JSON-LD `"image"` field |
+
+**Catatan:** File favicon lama (`favicon-16x16.png`, `favicon-32x32.png`, `favicon.ico`, `apple-touch-icon.png`, `android-chrome-192/512.png`) masih ada di disk untuk safety tapi sudah tidak di-reference. Bisa dihapus kalau mau bersih-bersih. Saat browser load favicon 16/32px, file 512×512 akan auto-downscale — boros bandwidth sedikit tapi cache 1× cross-page.
+
+`site.webmanifest` juga sudah di-fix: sebelumnya `name`/`short_name` empty dan icon paths refer ke `/android-chrome-...` (broken, file ada di `/assets/favicon/`). Sekarang `name: JagoPijat`, `theme_color: #C8943A` (gold), `background_color: #1C0A02` (deep brown).
+
+---
+
+## SEO & Metadata
+Setiap halaman HTML sudah dilengkapi:
+
+| Komponen | Isi |
+|----------|-----|
+| Meta dasar | `description` (unik per halaman, ≤160 char), `keywords`, `author`, `robots` |
+| Open Graph | `og:title`, `og:description`, `og:type`, `og:url`, `og:image`, `og:site_name`, `og:locale=id_ID` |
+| Twitter Card | `summary_large_image` + title/description/image |
+| Canonical | `<link rel="canonical">` per halaman |
+| Favicon | Link ke `assets/favicon/*` (apple-touch, 16x16, 32x32, ico, webmanifest) |
+| Schema.org | JSON-LD `LocalBusiness` (name, telephone, address Tangerang, areaServed Jabodetabek, IG `sameAs`, opening hours Mo-Su 08:00–21:00, priceRange Rp 120.000 – Rp 300.000) |
+
+**Keyword utama:** pijat tradisional Tangerang · pijat home service Tangerang · refleksi kaki Tangerang · bekam Tangerang · terapi lintah Tangerang · pijat panggilan Jakarta · pijat panggilan Tangerang
+
+> Saat update domain final, cari-ganti `https://www.jagopijat.com` di canonical, OG `url`, dan JSON-LD `url` di 5 file HTML.
+
+---
+
 ## WhatsApp Integration
 Form booking otomatis format pesan dan kirim ke WA:
 - Nomor tujuan: `6285823061990`
 - Format URL: `https://wa.me/6285823061990?text=...`
-- Pesan berisi: nama, nomor WA, layanan, tanggal, waktu, alamat, catatan
+- Pesan berisi: nama, jenis kelamin, no WA, layanan, tanggal, waktu, alamat, kota, provinsi, catatan
+- Template literal + 1× `encodeURIComponent()` (bukan hand-coded %XX literal)
+- Format pesan:
+  ```
+  🌿 *PEMESANAN JAGOPIJAT* 🌿
+  ━━━━━━━━━━
+  👤 *Nama:* ...
+  🚻 *Jenis Kelamin:* ...
+  📱 *No. WA:* ...
+
+  💆 *Layanan:* ...
+  📅 *Tanggal:* ...
+  ⏰ *Waktu:* ...
+  📍 *Alamat:* ...
+  🏙️ *Kota:* ...
+  🗺️ *Provinsi:* ...
+  📝 *Catatan:* ...
+  ━━━━━━━━━━
+  _Dikirim via jagopijat.com_
+  ```
 
 ---
 
@@ -193,23 +313,40 @@ git push
 ---
 
 ## To Do
+- [x] SEO meta tags, Open Graph, Twitter Card, canonical, JSON-LD LocalBusiness
+- [x] Link favicon di `<head>` semua halaman
+- [x] Fix navbar navigation (index.html anchor mati → cross-page links, brand-profile.html tambah navbar)
+- [x] Logo transparent untuk navbar/footer/hero & semua favicon/OG references
+- [x] Fix `site.webmanifest` (paths broken + name/colors)
+- [x] Shared header & footer (`header.js` + `footer.js`) — DRY
+- [x] Hamburger menu mobile (≤768px) dengan full-screen overlay
+- [x] Auto-update copyright year (`new Date().getFullYear()`)
+- [x] Cleanup dead `.ft-*` / `.nav-*` CSS dari semua halaman
+- [x] Footer link konsisten di 5 halaman (Layanan 6 items, Navigasi 4 items)
+- [x] Booking form: Jenis Kelamin (radio), Provinsi+Kota cascade
+- [x] Halaman utama: section "Kenapa Terapi" + testimoni slider auto-scroll 6 items
+- [x] Halaman legal: Syarat & Ketentuan + Kebijakan Privasi
 - [ ] Tambah foto-foto layanan di `assets/images/`
 - [ ] Tambah foto tim terapis
 - [ ] Tambah foto before/after treatment
 - [ ] Integrasikan Google Analytics
 - [ ] Tambah halaman FAQ
-- [ ] Optimasi gambar (WebP format)
+- [ ] Optimasi gambar (WebP format) + resize logo_transparent (~135KB) jadi ukuran lebih kecil untuk navbar
 - [ ] Test di berbagai device & browser
 - [ ] Setup Google My Business
+- [ ] Submit sitemap ke Google Search Console
+- [ ] (Opsional) Hapus file favicon legacy (white bg) kalau sudah pasti tidak dipakai
 
 ---
 
 ## Catatan Developer
-- Semua gambar saat ini embed base64 langsung di HTML (sementara)
-- Setelah gambar asli tersedia, pindahkan ke `assets/images/` dan ganti src
-- File `jagopijat_main.html` adalah versi lama — sudah digantikan `index.html`
-- Navigasi antar halaman pakai relative path — semua file harus dalam 1 folder
+- Hero photo (1 gambar besar di index) masih embed base64. Logo & icon di CTA section sudah pakai file `logo_transparent.png`.
+- Setelah foto asli tersedia, pindahkan ke `assets/images/` dan ganti `<img src>` (terutama di hero index.html).
+- Navigasi antar halaman pakai relative path — semua file harus dalam 1 folder root.
+- Header & footer di-render JS. Untuk update kontak/link/copy, edit `assets/js/header.js` atau `assets/js/footer.js` saja.
+- Untuk update legal pages (Syarat/Privasi), edit file HTML masing-masing + ubah tanggal "Berlaku efektif sejak ..." di akhir.
+- Form booking validation: setiap field required ada di array `fields` di `submitForm()` (booking.html). Tambah/kurangi field di sini juga ikut update validasi otomatis.
 
 ---
 
-*Dibuat dengan Claude · JagoPijat © 2025*
+*Dibuat dengan Claude · JagoPijat — copyright year auto-update via JS*
