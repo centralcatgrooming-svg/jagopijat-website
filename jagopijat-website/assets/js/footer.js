@@ -77,8 +77,8 @@ footer.jp-footer{background:#060200;padding:52px 48px 28px;border-top:1px solid 
     <div class="jp-ft-bot">
       <div class="jp-ft-copy">&copy; ${year} JagoPijat. All Rights Reserved.</div>
       <div class="jp-ft-links">
-        <a href="#">Syarat &amp; Ketentuan</a>
-        <a href="#">Kebijakan Privasi</a>
+        <a href="syarat-ketentuan.html">Syarat &amp; Ketentuan</a>
+        <a href="kebijakan-privasi.html">Kebijakan Privasi</a>
         <a href="index.html">www.jagopijat.com</a>
       </div>
     </div>
