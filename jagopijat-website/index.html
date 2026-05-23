@@ -100,10 +100,10 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .hd-diamond{width:6px;height:6px;background:var(--gd);transform:rotate(45deg)}
 .hero-sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:rgba(255,248,220,.92);font-style:italic;margin-bottom:20px;line-height:1.6;text-shadow:0 1px 16px rgba(0,0,0,.85)}
 .hero-desc{color:rgba(237,224,192,.92);font-size:.92rem;line-height:1.8;max-width:480px;margin-bottom:36px;text-shadow:0 1px 14px rgba(0,0,0,.9)}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
-.btn-g{background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:14px 34px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(200,148,58,.35)}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;position:relative;z-index:10}
+.btn-g{background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:14px 34px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(200,148,58,.35);display:inline-block;text-decoration:none;text-align:center}
 .btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(200,148,58,.5)}
-.btn-o{background:transparent;color:#EDE0C0;border:1px solid rgba(237,224,192,.35);padding:14px 28px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s}
+.btn-o{background:transparent;color:#EDE0C0;border:1px solid rgba(237,224,192,.35);padding:14px 28px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s;display:inline-block;text-decoration:none;text-align:center}
 .btn-o:hover{border-color:var(--gd);color:var(--gd)}
 
 /* HERO STATS CARD */
@@ -428,8 +428,8 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
       <p class="hero-sub fu2">"Ngelangut ing Rahayuning Raga"</p>
       <p class="hero-desc fu2">Layanan pijat & refleksi tradisional terbaik dari terapis berpengalaman. Kami hadir langsung ke rumah Anda — membawa kedamaian dan kesehatan khas warisan leluhur nusantara.</p>
       <div class="hero-btns fu3">
-        <button class="btn-g" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">PESAN SEKARANG</button>
-        <button class="btn-o" onclick="document.getElementById('layanan').scrollIntoView({behavior:'smooth'})">LIHAT LAYANAN</button>
+        <a class="btn-g" href="booking.html">PESAN SEKARANG</a>
+        <a class="btn-o" href="layanan.html">LIHAT LAYANAN</a>
       </div>
     </div>
 
