@@ -94,7 +94,7 @@ body.jp-nav-open{overflow:hidden}
     </a>
     <div class="jp-nav-right">
       <div class="jp-nav-phone">&#128222; <span>+62 858-2306-1990</span></div>
-      <a href="booking.html" class="jp-navcta">PESAN SEKARANG</a>
+      <a href="booking.html#form-area" class="jp-navcta">PESAN SEKARANG</a>
       <button class="jp-burger" aria-label="Buka menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -108,7 +108,7 @@ body.jp-nav-open{overflow:hidden}
   <div class="jp-overlay-inner">
     <ul class="jp-overlay-links">${overlayLinksHTML}</ul>
     <div class="jp-overlay-cta">
-      <a href="booking.html" class="jp-ocBook">PESAN SEKARANG</a>
+      <a href="booking.html#form-area" class="jp-ocBook">PESAN SEKARANG</a>
       <a href="https://wa.me/6285823061990" class="jp-ocPhone">CHAT WHATSAPP</a>
     </div>
   </div>
