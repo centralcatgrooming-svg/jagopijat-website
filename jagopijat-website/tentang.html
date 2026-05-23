@@ -70,24 +70,6 @@
 html{scroll-behavior:smooth}
 body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hidden}
 .batik{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><ellipse cx='40' cy='20' rx='14' ry='18' fill='none' stroke='%23C8943A' stroke-width='1.2' opacity='0.18'/><ellipse cx='40' cy='60' rx='14' ry='18' fill='none' stroke='%23C8943A' stroke-width='1.2' opacity='0.18'/><ellipse cx='20' cy='40' rx='18' ry='14' fill='none' stroke='%23C8943A' stroke-width='1.2' opacity='0.18'/><ellipse cx='60' cy='40' rx='18' ry='14' fill='none' stroke='%23C8943A' stroke-width='1.2' opacity='0.18'/><circle cx='40' cy='40' r='5' fill='none' stroke='%23C8943A' stroke-width='1' opacity='0.22'/></svg>")}
-.navbar{position:fixed;top:0;left:0;right:0;z-index:200}
-.nav-top{background:rgba(14,5,1,.97);backdrop-filter:blur(16px);padding:12px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(200,148,58,.2)}
-.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo-img{width:44px;height:44px;object-fit:contain;border-radius:50%;border:1.5px solid rgba(200,148,58,.4)}
-.logo-brand{display:flex;flex-direction:column;line-height:1}
-.logo-name{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:600;color:var(--gd);letter-spacing:.12em}
-.logo-tagline{font-family:'Lora',serif;font-size:.65rem;color:rgba(237,224,192,.65);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
-.nav-right{display:flex;align-items:center;gap:14px}
-.nav-phone{display:flex;align-items:center;gap:7px;color:rgba(237,224,192,.78);font-size:.8rem;letter-spacing:.04em}
-.nav-phone span{color:var(--gd);font-weight:600}
-.navcta{background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:10px 24px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:all .25s;box-shadow:0 3px 14px rgba(200,148,58,.3);text-decoration:none;display:inline-block}
-.navcta:hover{transform:translateY(-1px)}
-.nav-sub{background:rgba(28,10,2,.95);backdrop-filter:blur(12px);padding:0 48px;border-bottom:1px solid rgba(200,148,58,.12)}
-.sub-links{display:flex;align-items:center;gap:0;list-style:none}
-.sub-links li a{display:block;padding:12px 22px;color:rgba(237,224,192,.72);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-family:'Cinzel',serif;transition:all .25s;border-bottom:2px solid transparent}
-.sub-links li a:hover,.sub-links li a.active{color:var(--gd);border-bottom-color:var(--gd)}
-.sub-divider{width:1px;height:14px;background:rgba(200,148,58,.2);margin:0 4px}
-.sub-badge{background:rgba(200,148,58,.15);color:var(--gd);font-size:.6rem;padding:2px 7px;border-radius:100px;margin-left:6px;border:1px solid rgba(200,148,58,.25)}
 .sec{padding:88px 24px}
 .si-wrap{max-width:1120px;margin:0 auto}
 .sec-lbl{display:inline-flex;align-items:center;gap:8px;color:var(--gd);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-family:'Cinzel',serif}
@@ -98,8 +80,7 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .btn-g:hover{transform:translateY(-2px)}
 .btn-o{background:transparent;color:var(--bm);border:1px solid rgba(74,32,16,.3);padding:12px 24px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;border-radius:2px;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
 .btn-o:hover{border-color:var(--gd);color:var(--gd)}
-@media(max-width:1024px){.nav-phone{display:none}}
-@media(max-width:768px){.nav-top{padding:10px 18px}.logo-tagline{display:none}.navcta{padding:8px 14px;font-size:.72rem}.nav-sub{padding:0 4px;overflow-x:auto;scrollbar-width:none}.nav-sub::-webkit-scrollbar{display:none}.sub-links a{padding:10px 14px;font-size:.68rem;white-space:nowrap}.sub-divider,.sub-badge{display:none}.sec{padding:60px 18px}}
+@media(max-width:768px){.sec{padding:60px 18px}}
 
 
 .page-hero{padding:140px 48px 60px;background:linear-gradient(155deg,#1C0A02,#3A1508);text-align:center;position:relative;overflow:hidden}
@@ -140,24 +121,8 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 </style>
 </head>
 <body>
-<div class="navbar">
-  <div class="nav-top">
-    <a href="index.html" class="logo-wrap">
-      <img src="assets/favicon/logo_transparent.png" class="logo-img" alt="JagoPijat"/>
-      <div class="logo-brand">
-        <div class="logo-name">JAGOPIJAT</div>
-        <div class="logo-tagline">Pijat Tradisional &middot; Home Service</div>
-      </div>
-    </a>
-    <div class="nav-right">
-      <div class="nav-phone">&#128222; <span>+62 858-2306-1990</span></div>
-      <a href="booking.html" class="navcta">PESAN SEKARANG</a>
-    </div>
-  </div>
-  <nav class="nav-sub">
-    <ul class="sub-links"><li><a href="index.html">Beranda</a></li><div class="sub-divider"></div><li><a href="layanan.html">Layanan & Harga</a></li><div class="sub-divider"></div><li><a href="booking.html">Booking <span class="sub-badge">OPEN</span></a></li><div class="sub-divider"></div><li><a href="tentang.html" class="active">Tentang Kami</a></li><div class="sub-divider"></div><li><a href="brand-profile.html">Brand Profile</a></li></ul>
-  </nav>
-</div>
+<div id="site-header"></div>
+<script src="assets/js/header.js"></script>
 
 <div class="page-hero batik">
   <div style="position:absolute;inset:0;background:linear-gradient(155deg,rgba(28,10,2,.95),rgba(58,21,8,.92));"></div>
