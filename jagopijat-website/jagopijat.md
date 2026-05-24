@@ -38,7 +38,10 @@ jagopijat-website/              ← git root
 │   │   ├── js/
 │   │   │   ├── header.js        # ★ Shared header (DRY, hamburger mobile)
 │   │   │   └── footer.js        # ★ Shared footer (DRY, auto-year)
-│   │   ├── images/              # Foto & gambar (coming soon)
+│   │   ├── images/
+│   │   │   ├── pijattradisional.webp  # Featured card: Pijat Tradisional
+│   │   │   ├── totokwajah.webp        # Featured card: Pijat + Totok Wajah + Scrub
+│   │   │   └── terapilintah.webp      # Featured card: Terapi Lintah
 │   │   └── favicon/
 │   │       ├── logo_transparent.png   # ★ Logo aktif (PNG transparent)
 │   │       ├── site.webmanifest
@@ -54,7 +57,7 @@ jagopijat-website/              ← git root
 - Hero full-screen dengan foto pijat + overlay gradient + Quick Book form
 - Stats strip (500+ pelanggan, 20+ tahun, 7 layanan, 4.9★)
 - **Kenapa Terapi** — 3 benefit columns (energi/stamina, stres pikiran, nyaman di rumah) + social proof line
-- 3 layanan unggulan highlight (Pijat Tradisional, Layanan Spesial, Terapi Lintah)
+- 3 layanan unggulan highlight dengan foto full-width di card (Pijat Tradisional, Pijat + Totok Wajah + Scrub, Terapi Lintah) — gambar WebP dari `assets/images/`, class `.feat-img` (200px height, object-fit cover, negative margin untuk full-bleed)
 - Section "Kenapa JagoPijat" (4 poin: bersertifikat, alami, home service, transparan)
 - **Testimoni** — auto-scroll marquee dengan 6 testimoni (pause-on-hover, mask-fade edges, JS-duplicate untuk seamless loop)
 - Big CTA → booking.html
@@ -338,7 +341,7 @@ git push
 - [x] Google Search Console verification meta tag
 - [x] Migrasi hosting Netlify → GitHub Pages (Actions workflow + CNAME + .nojekyll)
 - [x] Audit menyeluruh semua halaman (mobile, tombol, form, WA, konten, SEO, a11y)
-- [ ] Tambah foto-foto layanan di `assets/images/`
+- [x] Tambah foto layanan di `assets/images/` (3 featured card: pijat tradisional, totok wajah, terapi lintah)
 - [ ] Tambah foto tim terapis
 - [ ] Tambah foto before/after treatment
 - [ ] Integrasikan Google Analytics
@@ -352,8 +355,8 @@ git push
 ---
 
 ## Catatan Developer
-- Hero photo (1 gambar besar di index) masih embed base64. Logo & icon di CTA section sudah pakai file `logo_transparent.png`.
-- Setelah foto asli tersedia, pindahkan ke `assets/images/` dan ganti `<img src>` (terutama di hero index.html).
+- Hero photo (1 gambar besar di index) masih embed base64.
+- Featured card layanan unggulan sudah pakai gambar WebP dari `assets/images/` (dipindahkan dari `assets/favicon/`). Logo & icon di CTA section pakai `logo_transparent.png`.
 - Navigasi antar halaman pakai relative path — semua file harus dalam 1 folder root.
 - Header & footer di-render JS. Untuk update kontak/link/copy, edit `assets/js/header.js` atau `assets/js/footer.js` saja.
 - Untuk update legal pages (Syarat/Privasi), edit file HTML masing-masing + ubah tanggal "Berlaku efektif sejak ..." di akhir.
