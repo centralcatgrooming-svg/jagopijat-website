@@ -326,7 +326,7 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gd),var(--gl));transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .feat-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(74,32,16,.13);border-color:rgba(200,148,58,.35)}
 .feat-card:hover::after{transform:scaleX(1)}
-.feat-icon{width:52px;height:52px;border-radius:50%;background:rgba(200,148,58,.1);border:1px solid rgba(200,148,58,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px}
+.feat-img{width:calc(100% + 56px);height:200px;object-fit:cover;border-radius:3px 3px 0 0;margin:-32px -28px 20px -28px;display:block}
 .feat-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--br);margin-bottom:8px}
 .feat-price{font-family:'Cinzel',serif;font-size:.88rem;color:var(--gd);font-weight:600;margin-bottom:10px}
 .feat-desc{color:var(--ts);font-size:.85rem;line-height:1.65}
@@ -519,21 +519,21 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
         </div>
         <div class="feat-grid">
           <div class="feat-card">
-            <div class="feat-icon">&#129404;</div>
+            <img src="assets/images/pijattradisional.webp" alt="Pijat Tradisional" class="feat-img"/>
             <div class="feat-name">Pijat Tradisional</div>
             <div class="feat-price">Mulai Rp 125.000</div>
             <p class="feat-desc">Teknik urut tradisional Jawa yang sudah dipraktikkan turun-temurun. Tersedia 60, 90, dan 120 menit.</p>
             <a href="layanan.html" class="feat-link">Lihat Detail &#8594;</a>
           </div>
           <div class="feat-card">
-            <div class="feat-icon">&#10024;</div>
+            <img src="assets/images/totokwajah.webp" alt="Pijat + Totok Wajah + Scrub" class="feat-img"/>
             <div class="feat-name">Pijat + Totok Wajah + Scrub</div>
             <div class="feat-price">Mulai Rp 190.000 <span style="font-size:.7rem;color:var(--ts);font-family:'Lora',serif;font-weight:400">· Best Value</span></div>
             <p class="feat-desc">Layanan spesial tiga dalam satu — pijat tubuh, totok wajah, dan scrub untuk pengalaman relaksasi total.</p>
             <a href="layanan.html" class="feat-link">Lihat Detail &#8594;</a>
           </div>
           <div class="feat-card">
-            <div class="feat-icon">&#127807;</div>
+            <img src="assets/images/terapilintah.webp" alt="Terapi Lintah" class="feat-img"/>
             <div class="feat-name">Terapi Lintah</div>
             <div class="feat-price">Rp 300.000 / Treatment</div>
             <p class="feat-desc">Terapi eksklusif menggunakan lintah medis untuk melancarkan peredaran darah dan mengatasi nyeri sendi.</p>
