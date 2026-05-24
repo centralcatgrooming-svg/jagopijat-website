@@ -93,6 +93,7 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
 .fsub{width:100%;background:linear-gradient(135deg,var(--gd),var(--gl));color:var(--br);border:none;padding:15px;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.1em;border-radius:2px;cursor:pointer;transition:all .3s;margin-top:6px;box-shadow:0 4px 20px rgba(200,148,58,.35)}
 .fsub:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(200,148,58,.5)}
 .gd-grp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.gd-grp-3{grid-template-columns:1fr 1fr 1fr}
 .gd-grp label{cursor:pointer;display:block;position:relative}
 .gd-in{position:absolute;opacity:0;width:0;height:0}
 .gd-pill{display:flex;align-items:center;justify-content:center;padding:13px 16px;background:#FFFDF5;border:1px solid rgba(200,148,58,.22);border-radius:2px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;color:var(--ts);transition:all .25s;text-align:center}
@@ -188,6 +189,12 @@ body{font-family:'Lora',serif;background:var(--cr);color:var(--br);overflow-x:hi
             <option>Terapi Lintah 10 Ekor - Rp 300.000</option>
           </optgroup>
         </select>
+        <label class="fl">Preferensi Terapis</label>
+        <div class="gd-grp gd-grp-3">
+          <label><input type="radio" name="therapist-pref" value="Terapis Wanita" class="gd-in"/><span class="gd-pill">Terapis Wanita</span></label>
+          <label><input type="radio" name="therapist-pref" value="Terapis Pria" class="gd-in"/><span class="gd-pill">Terapis Pria</span></label>
+          <label><input type="radio" name="therapist-pref" value="Tidak Masalah" class="gd-in" checked/><span class="gd-pill">Tidak Masalah</span></label>
+        </div>
         <div class="frow">
           <div><label class="fl">Tanggal</label><input class="fi" type="date" id="f-date"/></div>
           <div><label class="fl">Waktu</label><input class="fi" type="time" id="f-time"/></div>
@@ -286,12 +293,14 @@ loadProvinces();
 function submitForm(){
   const v = id => document.getElementById(id).value.trim();
   const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || '';
+  const therapistPref = (document.querySelector('input[name="therapist-pref"]:checked') || {}).value || '';
 
   const fields = {
     'Nama Lengkap':    v('f-name'),
     'Jenis Kelamin':   gender,
     'No. WhatsApp':    v('f-phone'),
     'Layanan':         v('f-svc'),
+    'Preferensi Terapis': therapistPref,
     'Tanggal':         v('f-date'),
     'Waktu':           v('f-time'),
     'Alamat':          v('f-addr'),
@@ -320,6 +329,7 @@ function submitForm(){
 📱 *No. WA:* ${fields['No. WhatsApp']}
 
 💆 *Layanan:* ${fields.Layanan}
+👨‍⚕️ *Preferensi Terapis:* ${fields['Preferensi Terapis']}
 📅 *Tanggal:* ${tgl}
 ⏰ *Waktu:* ${wkt}
 📍 *Alamat:* ${fields.Alamat}
