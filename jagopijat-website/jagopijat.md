@@ -5,6 +5,41 @@ Website multi-page untuk JagoPijat — layanan pijat & refleksi tradisional home
 
 ---
 
+## ⚠️ LARANGAN UPDATE
+
+Berikut hal-hal yang **TIDAK BOLEH** diubah tanpa persetujuan client:
+
+### 🚫 Jangan Diubah
+- **Hero section** di `index.html` — foto, overlay, teks hero sudah final
+- **Warna brand** — `--gd: #C8943A`, `--br: #1C0A02` sudah ditetapkan
+- **Font brand** — Cinzel, Playfair Display, Lora sudah final
+- **Logo** — file di `assets/favicon/` jangan diganti tanpa approval
+- **Nomor WhatsApp** — `6285823061990` jangan diubah sembarangan
+- **Instagram** — `@jago_pijat` jangan diubah sembarangan
+- **Harga layanan** — hanya boleh diubah atas instruksi langsung client
+- **DNS records** di Rumahweb — jangan diubah tanpa koordinasi
+- **robots.txt & sitemap.xml** — jangan dihapus (SEO & Google indexing)
+- **Google verification meta tag** di index.html — jangan dihapus
+- **CNAME file** — jangan diubah (akan break custom domain)
+- **deploy.yml** — jangan diubah tanpa testing terlebih dahulu
+
+### ✅ Boleh Diupdate
+- Konten teks (deskripsi, testimoni, info terapis)
+- Foto & gambar di `assets/images/`
+- Harga (atas instruksi client)
+- Tambah halaman baru
+- Perbaikan bug & tampilan
+- SEO meta description per halaman
+
+### 📋 Prosedur Update
+1. Edit file di VS Code
+2. Test di browser lokal dulu
+3. Commit dengan pesan yang jelas
+4. Push ke GitHub → auto deploy ke jagopijat.com
+5. Verifikasi live di www.jagopijat.com
+
+---
+
 ## Tech Stack
 | Layer | Teknologi |
 |-------|-----------|
